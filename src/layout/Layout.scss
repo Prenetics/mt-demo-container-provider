@@ -1,0 +1,35 @@
+@import '../theme/colors.module.scss';
+
+.dashboard-container {
+    display: flex;
+}
+
+.layout {
+    display: flex;
+    flex-direction: row;
+
+    svg {
+        position: absolute;
+    }
+
+    .login-img {
+        object-fit: cover;
+        height: 100vh;
+        max-width: 100%;
+        width: 50%;
+    }
+
+    .right-component {
+        display: flex;
+        flex-direction: column;
+        background-color: $White;
+        width: 100%;
+        align-items: center;
+        justify-content: space-evenly;
+
+        .language-selector {
+            margin-bottom: 0rem;
+            margin-left: 20rem;
+        }
+    }
+}

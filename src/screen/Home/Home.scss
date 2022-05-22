@@ -1,0 +1,20 @@
+@import '../../theme/colors.module.scss';
+
+.Home {
+    .container {
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .report-category {
+        margin-top: 1em;
+        align-self: center;
+    }
+
+    .dropdown {
+        width: 20em;
+        margin: 1em;
+    }
+}

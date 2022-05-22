@@ -1,0 +1,47 @@
+@import '../../theme/colors.module.scss';
+
+.Login {
+    .container {
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-width: 28rem;
+
+        .login-form {
+            width: 100%;
+        }
+        .lib-FormField {
+            min-width: 26rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0;
+        }
+
+        .InputWithIcon.label .input-icon {
+            top: 65px;
+        }
+
+        .button {
+            margin-top: 1.5rem;
+        }
+
+        .forgot-password {
+            align-self: center;
+            font-family: Gilroy;
+            margin-top: 1rem;
+            text-decoration: underline;
+            text-decoration-color: $C5;
+        }
+    }
+
+    @media screen and (max-width: 1024px) {
+        .container {
+            min-width: 22rem;
+            padding: 2rem;
+
+            .lib-FormField {
+                min-width: 21rem;
+            }
+        }
+    }
+}
