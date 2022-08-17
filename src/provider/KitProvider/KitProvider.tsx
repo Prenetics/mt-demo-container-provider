@@ -1,11 +1,9 @@
 import React, { ReactNode, useCallback, useContext, useEffect, useState } from 'react';
 import { KitContext } from './context/KitContext';
 import * as KitService from '../../service/api/kit/kit';
-import { useAuth } from '../AuthProvider/AuthProvider';
 import { ApiErrorHandler } from '../handler';
 import { capture } from '../../helper/error';
 import { Kit, KitMetadataType, KitStatus } from '../../service/type/Kit';
-import { useProfile } from '../ProfileProvider/ProfileProvider';
 import { findLatestKit } from '../../function/KitFilter';
 import * as CheckoutService from '../../service/api/checkout/checkout';
 import { Customer } from './type/Customer';
@@ -23,6 +21,7 @@ import { KitInterface } from './type/KitInterface';
 import { ReportType } from '../../type/Report';
 import { HeartHealthKit } from './type/HeartHealthKit';
 import { PRODUCT_LINE } from '../../constant';
+import { useAuth, useProfile } from '@prenetics/react-context-provider';
 
 type Props = {
     children: ReactNode;
@@ -30,7 +29,7 @@ type Props = {
 
 export const KitProvider: React.FC<Props> = ({ children }) => {
     const { locale } = useContext(CopyContext);
-    const { token, isAuthReady } = useAuth();
+    const { token } = useAuth();
     const { currentProfile } = useProfile();
     const { getBooking } = useBooking();
     const [kits, setKits] = useState<Kit[] | undefined>();
@@ -141,13 +140,11 @@ export const KitProvider: React.FC<Props> = ({ children }) => {
 
     // Init
     useEffect(() => {
-        if (isAuthReady) {
-            if (token) {
-                setKitReady(false);
-                refreshKits(token);
-            }
+        if (token) {
+            setKitReady(false);
+            refreshKits(token);
         }
-    }, [isAuthReady, refreshKits, token]);
+    }, [refreshKits, token]);
 
     // Setup default kits
     useEffect(() => {
@@ -225,7 +222,7 @@ export const KitProvider: React.FC<Props> = ({ children }) => {
 
     // Clean up (Basically logout)
     useEffect(() => {
-        if (isAuthReady && !token) {
+        if (!token) {
             setKits(undefined);
             setDefaultKits({ [ReportType.DNA]: undefined, [ReportType.Antibody]: undefined, [ReportType.HeartHealthUK]: undefined });
             setDefaultAntibodyKit(undefined);
@@ -233,7 +230,7 @@ export const KitProvider: React.FC<Props> = ({ children }) => {
             setDefaultHeartHealthKit(undefined);
             setKitReady(false);
         }
-    }, [isAuthReady, token]);
+    }, [token]);
 
     const kitContext = React.useMemo(
         () => ({

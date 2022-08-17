@@ -1,9 +1,10 @@
+import React from 'react';
 import { Button, Input, InputWithIcon, Typography } from '@prenetics/prenetics-react-library';
 import { useState } from 'react';
 import colors from '../../theme/colors.module.scss';
 import { ReactComponent as ShowLogo } from '../../asset/image/show.svg';
 import './Login.scss';
-import { useAuth } from '../../provider/AuthProvider/AuthProvider';
+import { useAuth } from '@prenetics/react-context-provider';
 
 export const Login = () => {
     const { login } = useAuth();
@@ -16,7 +17,8 @@ export const Login = () => {
     const onSubmit = async () => {
         isLoading(true);
         try {
-            await login(username, password);
+            const token = await login(username, password);
+            if (token) localStorage.setItem('token', token);
         } catch (error) {
             console.log('error', error);
         }

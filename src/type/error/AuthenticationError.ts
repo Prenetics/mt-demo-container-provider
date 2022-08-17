@@ -2,6 +2,7 @@ export enum AuthenticationErrorReason {
     TooMany = 'ERR_AUTH_TOO_MANY',
     NotExists = 'ERR_AUTH_NOT_EXISTS',
     General = 'ERR_AUTH_GENERAL',
+    AlreadyExists = 'ERR_AUTH_ALREADY_EXISTS',
 }
 export class AuthenticationError extends Error {
     reason: AuthenticationErrorReason;

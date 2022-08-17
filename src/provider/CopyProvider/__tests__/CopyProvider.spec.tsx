@@ -1,3 +1,4 @@
+import React from 'react';
 import { useContext } from 'react';
 import { renderHook, act } from '@testing-library/react-hooks';
 import { CopyProvider } from '../CopyProvider';

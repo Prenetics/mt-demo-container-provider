@@ -1,6 +1,7 @@
+
+import { useAuth } from '@prenetics/react-context-provider';
 import React, { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { useAuth } from '../provider/AuthProvider/AuthProvider';
 
 import './Layout.scss';
 
@@ -20,7 +21,6 @@ export const OnboardingRoute = () => {
 
     useEffect(() => {
         if (token) {
-            console.log('go to home');
             navigate('/home');
             return;
         }

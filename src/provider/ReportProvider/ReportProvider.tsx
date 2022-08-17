@@ -1,7 +1,6 @@
 import React, { ReactNode, useCallback, useContext, useEffect, useState } from 'react';
 import { ReportContext } from './context/ReportContext';
 import { ApiErrorHandler } from '../handler';
-import { useAuth } from '../AuthProvider/AuthProvider';
 import * as ReportService from '../../service/api/report/report';
 import { capture } from '../../helper/error';
 import axios from 'axios';
@@ -14,6 +13,7 @@ import { AntibodyReport } from './type/AntibodyReport';
 import { Locale } from '../../type/Locale';
 import { usePrevious } from '../../hook/usePrevious';
 import { HeartHealthReport } from './type/HeartHealthReport';
+import { useAuth } from '@prenetics/react-context-provider';
 
 const isHomeReport = (report: Report): report is ReportOverviewModel => {
     return report.reportName === 'home';
@@ -32,7 +32,7 @@ type Props = {
 };
 
 export const ReportProvider: React.FC<Props> = ({ children }) => {
-    const { token, isAuthReady } = useAuth();
+    const { token } = useAuth();
     const { defaultKits, isKitReady } = useKit();
     const { locale } = useCopy();
     const prevLocale = usePrevious(locale);
@@ -162,7 +162,7 @@ export const ReportProvider: React.FC<Props> = ({ children }) => {
 
     // Reset (logout)
     useEffect(() => {
-        if (isAuthReady && !token) {
+        if (!token) {
             setDnaReport(undefined);
             setAntibodyReport(undefined);
             setHeartHealthReport(undefined);
@@ -170,7 +170,7 @@ export const ReportProvider: React.FC<Props> = ({ children }) => {
             setAntibodyReportReady(false);
             setHeartHealthReportReady(false);
         }
-    }, [isAuthReady, token]);
+    }, [token]);
 
     const reportContext = React.useMemo(
         () => ({

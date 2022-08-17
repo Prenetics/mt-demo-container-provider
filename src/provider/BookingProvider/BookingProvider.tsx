@@ -1,10 +1,10 @@
 import React, { ReactNode, useCallback, useContext, useMemo } from 'react';
-import { useAuth } from '../AuthProvider/AuthProvider';
 import * as BookingService from '../../service/api/booking/booking';
 import { ApiErrorHandler } from '../handler';
 import { BookingContext } from './context/BookingContext';
 import { CollectionType } from '../../service/api/booking/type';
 import axios from 'axios';
+import { useAuth } from '@prenetics/react-context-provider';
 
 export const SNAPSHOT_HK_COURIER_LOCATION = '744d0914-57b1-4a61-a782-44a0be060d04';
 export const SNAPSHOT_HK_DROPOFF_LOCATION = 'eda40390-ae0c-46df-ada7-ae03403f9149'; // <- Our Quarry Bay lab

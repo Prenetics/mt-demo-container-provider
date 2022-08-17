@@ -1,19 +1,22 @@
+import React from 'react';
 import './App.css';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { Layout, OnboardingRoute, ProtectedRoute } from './layout/Layout';
 import { Login } from './screen/Login/Login';
-import { AuthProvider } from './provider/AuthProvider/AuthProvider';
-import { ProfileProvider } from './provider/ProfileProvider/ProfileProvider';
 import { Home } from './screen/Home/Home';
 import { KitProvider } from './provider/KitProvider/KitProvider';
 import { BookingProvider } from './provider/BookingProvider/BookingProvider';
 import { ReportProvider } from './provider/ReportProvider/ReportProvider';
+import { useMemo } from 'react';
+import { AuthProvider, ProfileProvider } from '@prenetics/react-context-provider';
 
-function App() {
+const App: React.FC = () => {
+    const token = useMemo(() => localStorage.getItem('token'), []);
+
     return (
-        <AuthProvider>
+        <AuthProvider defaults={ token ? { token } : undefined}>
             <BookingProvider>
-                <ProfileProvider>
+                <ProfileProvider defaults={{ pid: () => localStorage.getItem('profileId') || '' }}>
                     <KitProvider>
                         <ReportProvider>
                             <BrowserRouter>
@@ -35,6 +38,6 @@ function App() {
             </BookingProvider>
         </AuthProvider>
     );
-}
+};
 
 export default App;
