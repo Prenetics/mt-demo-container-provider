@@ -8,7 +8,7 @@ import './Home.scss';
 
 export const Home = () => {
     const { token, logout } = useAuth();
-    const { currentProfile, setCurrentProfile, profiles } = useProfile();
+    const { currentProfile, setCurrentProfile, userProfiles } = useProfile();
     const { defaultDnaKit } = useKit();
     const { dnaReport } = useReport();
 
@@ -18,7 +18,7 @@ export const Home = () => {
                 <Typography text={'Profile'} color={colors.B9} type="p1" weight="black" />
                 <div className="dropdown">
                     <Dropdown
-                        dropDownList={profiles?.map(profile => ({ value: profile.profileId, id: profile.profileId, name: `${profile.name.firstName} ${profile.name.lastName}` }))}
+                        dropDownList={userProfiles?.map(profile => ({ value: profile.profileId, id: profile.profileId, name: `${profile.name.firstName} ${profile.name.lastName}` }))}
                         customDefaultValue={
                             currentProfile && {
                                 id: currentProfile.profileId,
@@ -27,10 +27,9 @@ export const Home = () => {
                         }
                         onItemChange={item => {
                             const profileId = (item as DropDownItemProps).id;
-                            const profile = profiles?.find(profile => profile.profileId === profileId);
+                            const profile = userProfiles?.find(profile => profile.profileId === profileId);
                             if (profile) {
                                 setCurrentProfile(profile);
-                                console.log('set localStorage profileId:', profile.profileId);
                                 localStorage.setItem('profileId', profile.profileId);
                             }
                         }}

@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@prenetics/prenetics-react-library": "^1.14.3",
-    "@prenetics/react-context-provider": "^0.5.6",
+    "@prenetics/react-context-provider": "^0.6.4",
     "axios": "^0.27.2",
     "jwt-decode": "^3.1.2",
     "moment": "^2.29.3",

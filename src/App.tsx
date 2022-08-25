@@ -16,7 +16,7 @@ const App: React.FC = () => {
     return (
         <AuthProvider defaults={ token ? { token } : undefined}>
             <BookingProvider>
-                <ProfileProvider defaults={{ pid: () => localStorage.getItem('profileId') || '' }}>
+                <ProfileProvider defaults={{ pid: async () => localStorage.getItem('profileId') || '' }}>
                     <KitProvider>
                         <ReportProvider>
                             <BrowserRouter>
